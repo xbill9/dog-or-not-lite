@@ -1,0 +1,82 @@
+{
+  "dog_01.jpg": {
+    "is_dog": true,
+    "subject": "beagle"
+  },
+  "dog_02.jpg": {
+    "is_dog": true,
+    "subject": "beagle"
+  },
+  "dog_03.jpg": {
+    "is_dog": true,
+    "subject": "corgi"
+  },
+  "dog_04.jpg": {
+    "is_dog": true,
+    "subject": "corgi"
+  },
+  "dog_05.jpg": {
+    "is_dog": true,
+    "subject": "german shepherd"
+  },
+  "dog_06.jpg": {
+    "is_dog": true,
+    "subject": "german shepherd"
+  },
+  "dog_07.jpg": {
+    "is_dog": true,
+    "subject": "golden retriever"
+  },
+  "dog_08.jpg": {
+    "is_dog": true,
+    "subject": "golden retriever"
+  },
+  "dog_09.jpg": {
+    "is_dog": true,
+    "subject": "real dog with plush toy"
+  },
+  "notdog_01.jpg": {
+    "is_dog": false,
+    "subject": "cat"
+  },
+  "notdog_02.jpg": {
+    "is_dog": false,
+    "subject": "cat"
+  },
+  "notdog_03.jpg": {
+    "is_dog": false,
+    "subject": "coyote"
+  },
+  "notdog_04.jpg": {
+    "is_dog": false,
+    "subject": "coyote"
+  },
+  "notdog_05.jpg": {
+    "is_dog": false,
+    "subject": "grey wolf"
+  },
+  "notdog_06.jpg": {
+    "is_dog": false,
+    "subject": "grey wolf"
+  },
+  "notdog_07.jpg": {
+    "is_dog": false,
+    "subject": "grey wolf"
+  },
+  "notdog_09.jpg": {
+    "is_dog": false,
+    "subject": "red fox"
+  },
+  "notdog_10.jpg": {
+    "is_dog": false,
+    "subject": "red fox"
+  },
+  "notdog_11.jpg": {
+    "is_dog": false,
+    "subject": "statue"
+  },
+  "notdog_12.jpg": {
+    "is_dog": false,
+    "subject": "statue"
+  }
+}

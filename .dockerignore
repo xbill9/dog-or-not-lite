@@ -1,0 +1,20 @@
+# Credentials must never reach the image. Lightsail deployments are inspectable
+# after the fact, and a baked-in key is not something you can un-push.
+*.key
+*.pem
+.env
+.env.*
+credentials*
+
+.git
+.github
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+README.md
+ARTICLE.md
+*.sh

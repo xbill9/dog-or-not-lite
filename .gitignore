@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Generated at deploy time, holds an access key.
+.env
+*.key
+credentials*
+deploy-state.json

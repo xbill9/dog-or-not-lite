@@ -1,0 +1,318 @@
+/*
+ * Surveillance-terminal look, carried over from the full scanner: black ground,
+ * one monospace face, cyan for chrome and a single accent per verdict state.
+ * No framework -- the whole page is three files and none of them are built.
+ */
+
+:root {
+  --bg: #05070a;
+  --panel: #0b1016;
+  --line: #1d2a36;
+  --ink: #d7e6f0;
+  --dim: #64798a;
+  --cyan: #00e5ff;
+  --green: #38ff9b;
+  --red: #ff4d5e;
+  --amber: #ffb547;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Horizontal scanlines over the whole page. Pointer-events off so it never
+   eats a click on the controls underneath. */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.22) 50%,
+    rgba(0, 0, 0, 0.22) 100%
+  );
+  background-size: 100% 4px;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  flex: 0 0 auto;
+}
+
+.foot {
+  border-bottom: 0;
+  border-top: 1px solid var(--line);
+}
+
+.brand {
+  color: var(--cyan);
+  font-weight: 700;
+  text-shadow: 0 0 6px currentColor;
+}
+
+.dim { color: var(--dim); }
+.small { font-size: 11px; }
+
+.model {
+  font-size: 11px;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 55vw;
+}
+
+main {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  min-height: 0;
+}
+
+/* ---- stage ------------------------------------------------------------- */
+
+.stage {
+  position: relative;
+  min-height: 0;
+  border: 1px solid var(--line);
+  background: #000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.stage video,
+.stage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  grid-area: 1 / 1;
+  background: #000;
+}
+
+.stage video[hidden],
+.stage img[hidden] { display: none; }
+
+.placeholder {
+  grid-area: 1 / 1;
+  text-align: center;
+  color: var(--dim);
+  z-index: 1;
+}
+
+.placeholder p { margin: 0.35rem 0; }
+.paw { font-size: 3rem; filter: grayscale(1) opacity(0.5); }
+
+/* Four corner brackets. One element, four spans, no images. */
+.reticle {
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.reticle span {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--cyan);
+  opacity: 0.55;
+}
+
+.reticle span:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.reticle span:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.reticle span:nth-child(3) { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+.reticle span:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+.busy {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-content: center;
+  gap: 1rem;
+  justify-items: center;
+  background: rgba(5, 7, 10, 0.72);
+  color: var(--cyan);
+}
+
+.busy[hidden] { display: none; }
+.busy p { margin: 0; letter-spacing: 0.25em; font-size: 12px; }
+
+.sweep {
+  width: 180px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  animation: sweep 1.1s ease-in-out infinite;
+}
+
+@keyframes sweep {
+  0%, 100% { transform: translateX(-60px); opacity: 0.3; }
+  50% { transform: translateX(60px); opacity: 1; }
+}
+
+/* ---- readout ----------------------------------------------------------- */
+
+.readout {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-height: 0;
+  overflow: auto;
+}
+
+.verdict {
+  font-size: clamp(1.4rem, 4.2vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.08em;
+  color: var(--dim);
+  border-left: 4px solid var(--line);
+  padding-left: 0.7rem;
+}
+
+.rows { margin: 0; display: flex; flex-direction: column; gap: 0.45rem; }
+
+.row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  border-bottom: 1px dotted var(--line);
+  padding-bottom: 0.3rem;
+}
+
+.row dt { color: var(--dim); font-size: 11px; flex: 0 0 auto; }
+.row dd {
+  margin: 0 0 0 auto;
+  text-align: right;
+  /* A long breed name must wrap inside the panel rather than widen it --
+     the same overflow bug the full build's telemetry rows had. */
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.meter {
+  height: 6px;
+  background: #101923;
+  border: 1px solid var(--line);
+}
+
+.meter i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--dim);
+  /* Width only. Transitioning `background` here left the bar showing the
+     PREVIOUS verdict's colour indefinitely -- green under NOT A DOG, red under
+     FELINE INTRUSION -- while the verdict text, which has no transition,
+     switched immediately. A state indicator should snap to the state; only the
+     fill level is worth animating. */
+  transition: width 0.5s ease;
+}
+
+.note {
+  margin: 0;
+  color: var(--dim);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* Verdict states. Only the accent colour and the words change. */
+.readout[data-state="dog"] .verdict { color: var(--green); border-color: var(--green); text-shadow: 0 0 12px var(--green); }
+.readout[data-state="dog"] .meter i { background: var(--green); }
+
+.readout[data-state="notdog"] .verdict { color: var(--red); border-color: var(--red); }
+.readout[data-state="notdog"] .meter i { background: var(--red); }
+
+.readout[data-state="cat"] .verdict { color: var(--amber); border-color: var(--amber); animation: glitch 0.18s steps(2) 6; }
+.readout[data-state="cat"] .meter i { background: var(--amber); }
+
+.readout[data-state="error"] .verdict { color: var(--amber); border-color: var(--amber); }
+
+@keyframes glitch {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-3px); }
+  100% { transform: translateX(3px); }
+}
+
+/* ---- controls ---------------------------------------------------------- */
+
+.controls {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 0.6rem;
+  padding: 0 1rem 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  flex: 1 1 auto;
+  min-width: 120px;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  font: inherit;
+  letter-spacing: 0.14em;
+  color: var(--cyan);
+  background: transparent;
+  border: 1px solid var(--cyan);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:hover:not(:disabled) { background: rgba(0, 229, 255, 0.12); }
+.btn:active:not(:disabled) { background: rgba(0, 229, 255, 0.25); }
+
+.btn:disabled {
+  color: var(--dim);
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+
+.btn.primary {
+  background: rgba(0, 229, 255, 0.14);
+  font-weight: 700;
+}
+
+.btn.primary:disabled { background: transparent; }
+
+/* Stack on a phone: the stage keeps the height it needs, the readout follows,
+   and the whole page scrolls rather than the stage collapsing to nothing. */
+@media (max-width: 760px) {
+  body { overflow: auto; }
+  main { grid-template-columns: 1fr; }
+  .stage { min-height: 46vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweep, .readout[data-state="cat"] .verdict { animation: none; }
+}

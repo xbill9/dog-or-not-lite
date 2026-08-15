@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Dog or Not: Lite</title>
+<meta name="description" content="Hold something up to the camera. It tells you whether it is a dog." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#128021;</text></svg>" />
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<div class="scanlines" aria-hidden="true"></div>
+
+<header class="bar">
+  <span class="brand">DOG&nbsp;OR&nbsp;NOT<span class="dim">&nbsp;::&nbsp;LITE</span></span>
+  <span class="model dim" id="model">AWAITING LINK</span>
+</header>
+
+<main>
+  <section class="stage" id="stage">
+    <!-- Live camera. Hidden once a still has been captured or uploaded. -->
+    <video id="video" playsinline muted autoplay></video>
+    <!-- The frame actually sent to the model. -->
+    <img id="still" alt="" hidden />
+
+    <div class="placeholder" id="placeholder">
+      <div class="paw">&#128062;</div>
+      <p>NO SUBJECT</p>
+      <p class="dim small">Start the camera, or upload an image.</p>
+    </div>
+
+    <div class="reticle" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+
+    <div class="busy" id="busy" hidden>
+      <div class="sweep"></div>
+      <p>ANALYSING SUBJECT</p>
+    </div>
+  </section>
+
+  <section class="readout" id="readout" data-state="idle" aria-live="polite">
+    <div class="verdict" id="verdict">AWAITING SUBJECT</div>
+    <dl class="rows">
+      <div class="row"><dt>SUBJECT</dt><dd id="subject">--</dd></div>
+      <div class="row"><dt>CONFIDENCE</dt><dd id="confidence">--</dd></div>
+      <div class="row"><dt>ELAPSED</dt><dd id="elapsed">--</dd></div>
+    </dl>
+    <div class="meter" aria-hidden="true"><i id="meterFill"></i></div>
+    <p class="note" id="note">Present a subject for assessment.</p>
+  </section>
+</main>
+
+<nav class="controls">
+  <button id="camera" class="btn">START CAMERA</button>
+  <button id="scan" class="btn primary" disabled>SCAN</button>
+  <label class="btn" for="file">UPLOAD</label>
+  <input id="file" type="file" accept="image/*" hidden />
+</nav>
+
+<footer class="bar foot">
+  <span class="dim small">CONTINUOUS SURVEILLANCE &#128062; ONE FRAME, ONE VERDICT</span>
+  <span class="dim small">AMAZON BEDROCK &middot; NOVA LITE &middot; LIGHTSAIL</span>
+</footer>
+
+<canvas id="canvas" hidden></canvas>
+<script src="/app.js" type="module"></script>
+</body>
+</html>

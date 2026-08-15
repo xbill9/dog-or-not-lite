@@ -1,0 +1,9 @@
+{
+  "credit": "Sound effects generated with ElevenLabs (elevenlabs.io)",
+  "clips": [
+    "/audio/bark_1.mp3",
+    "/audio/bark_2.mp3",
+    "/audio/bark_3.mp3",
+    "/audio/bark_4.mp3"
+  ]
+}
