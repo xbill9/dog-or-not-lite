@@ -98,7 +98,12 @@ And the expectations were **verified by eye before being committed**. Generate
 the input, never the expectation. An eval whose ground truth came out of a
 model is measuring agreement, not accuracy.
 
-Result: **`[MEASURE]`/20 correct, median `[MEASURE]` ms per scan.**
+Result: **20/20 correct, median 831 ms per scan.** Nova Lite got every wolf,
+every fox, both cats and both bronze statues right, and named the breeds
+unprompted — "beagle dog", "corgi dog", "german shepherd". The one thing I would
+not claim from this is that the rule is *robust*: 20 clean, well-lit,
+subject-fills-frame images is a smoke test, not a benchmark. It tells me the
+prompt works and the plumbing is right.
 
 ## AWS services used, and the architecture
 
@@ -139,9 +144,21 @@ image, or a command line.
 **Cross-region inference profiles need broader IAM than you would guess.**
 Invoking `us.amazon.nova-lite-v1:0` is not a call to one region — the profile
 routes across several, and Bedrock checks `InvokeModel` against the underlying
-foundation-model ARN in *each* of them. Granting only `us-east-1` produces an
-`AccessDeniedException` naming a region you never asked for. The policy needs
-both the inference-profile ARN and a wildcard-region foundation-model ARN.
+foundation-model ARN in *each* of them.
+
+I tested this rather than assuming it. With the policy pinned to `us-east-1`
+only, a call made *to* `us-east-1` fails like this:
+
+```
+AccessDeniedException: User: arn:aws:iam::…:user/dog-or-not-lite is not
+authorized to perform: bedrock:InvokeModel on resource:
+arn:aws:bedrock:us-west-2::foundation-model/amazon.nova-lite-v1:0
+```
+
+`us-west-2` — a region I never asked for and never configured. The policy needs
+the inference-profile ARN *and* a wildcard-region foundation-model ARN. If you
+are debugging a Bedrock `AccessDeniedException` that names the wrong region,
+this is why.
 
 **`--platform linux/amd64` is not optional.** Lightsail nodes are x86. An arm64
 image builds fine, pushes fine, deploys fine, and then crash-loops with an exec
