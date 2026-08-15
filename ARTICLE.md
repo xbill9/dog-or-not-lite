@@ -1,4 +1,4 @@
-# Weekend Creative Challenge: Dog or Not: Lite
+# Weekend Creative Challenge: Dog or Not Lite
 
 `#creative-expression` `#challenge`
 
