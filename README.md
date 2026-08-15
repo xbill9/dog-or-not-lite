@@ -1,5 +1,7 @@
 # Dog or Not: Lite
 
+![Dog or Not: Lite](cover.jpg)
+
 A scanner with one job: you hold something up to the camera, press **SCAN**, and
 it tells you whether it is a dog. If it is, it barks.
 
