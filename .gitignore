@@ -10,3 +10,10 @@ venv/
 *.key
 credentials*
 deploy-state.json
+
+# save-aws-creds.sh writes live credentials here by default. Its own guard
+# refuses to write into a work tree unless the path is ignored -- this is what
+# makes that guard pass, and what stops FORCE=1 from producing a committable
+# file full of keys.
+.aws_creds
+.aws_creds*

@@ -2,11 +2,11 @@
 
 `#creative-expression` `#challenge`
 
-> **Draft.** One placeholder left — the GitHub URL, which needs the repo pushed.
-> It is deliberately ugly so it cannot be published by accident.
+> Ready to publish. Every number here was measured against the deployed
+> service, not estimated. Not yet posted to Builder Center.
 
 **Live: https://dog-or-not-lite.6wpv8vensby5c.us-east-1.cs.amazonlightsail.com/**
-**Source: `[MEASURE: GitHub URL]`**
+**Source: https://github.com/xbill9/dog-or-not-lite**
 
 ---
 
@@ -172,7 +172,7 @@ someone, and they get the punchline in about a second.
 ## Links
 
 - **Live app:** https://dog-or-not-lite.6wpv8vensby5c.us-east-1.cs.amazonlightsail.com/
-- **Source:** `[MEASURE: GitHub URL]`
+- **Source:** https://github.com/xbill9/dog-or-not-lite
 
 Fixture images are from Wikimedia Commons under their respective licences; full
 attribution is in `fixtures/ATTRIBUTION.md`. Bark sound effects generated with
