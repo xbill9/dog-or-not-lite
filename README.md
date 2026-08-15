@@ -9,6 +9,11 @@ entire joke is that it does not know it is making one.
 
 > Built for the [AWS Weekend Challenge: Build a Creative App](https://builder.aws.com/content/3HkKlGRPcyks0rQpYVUVY9veCX0/weekend-challenge-build-a-creative-app).
 
+**Live: https://dog-or-not-lite.6wpv8vensby5c.us-east-1.cs.amazonlightsail.com/**
+
+Press START CAMERA and hold something up, or UPLOAD an image. Scored 20/20 on
+the fixture set against the deployed service, median 880 ms per scan.
+
 ## What "Lite" means
 
 This is a deliberate reduction of [Dog or Not](https://github.com/xbill9/way-back-home),

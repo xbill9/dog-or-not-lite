@@ -2,11 +2,10 @@
 
 `#creative-expression` `#challenge`
 
-> **Draft.** Everything marked **`[MEASURE]`** needs a real number from a real
-> deploy before this is published. Placeholders are deliberately ugly so they
-> cannot be published by accident.
+> **Draft.** One placeholder left — the GitHub URL, which needs the repo pushed.
+> It is deliberately ugly so it cannot be published by accident.
 
-**Live: `[MEASURE: Lightsail URL]`**
+**Live: https://dog-or-not-lite.6wpv8vensby5c.us-east-1.cs.amazonlightsail.com/**
 **Source: `[MEASURE: GitHub URL]`**
 
 ---
@@ -98,7 +97,8 @@ And the expectations were **verified by eye before being committed**. Generate
 the input, never the expectation. An eval whose ground truth came out of a
 model is measuring agreement, not accuracy.
 
-Result: **20/20 correct, median 831 ms per scan.** Nova Lite got every wolf,
+Result against the deployed service: **20/20 correct, median 880 ms per scan**
+(20/20 and 831 ms running locally). Nova Lite got every wolf,
 every fox, both cats and both bronze statues right, and named the breeds
 unprompted — "beagle dog", "corgi dog", "german shepherd". The one thing I would
 not claim from this is that the rule is *robust*: 20 clean, well-lit,
@@ -171,7 +171,7 @@ someone, and they get the punchline in about a second.
 
 ## Links
 
-- **Live app:** `[MEASURE: Lightsail URL]`
+- **Live app:** https://dog-or-not-lite.6wpv8vensby5c.us-east-1.cs.amazonlightsail.com/
 - **Source:** `[MEASURE: GitHub URL]`
 
 Fixture images are from Wikimedia Commons under their respective licences; full
